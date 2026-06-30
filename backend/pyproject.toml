@@ -1,0 +1,20 @@
+[project]
+name = "care-connect-emr-backend"
+version = "0.1.0"
+description = "Care-Connect-EMR backend: FastAPI REST + WebSocket signaling + worker"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.hypothesis]
+# Property-based tests run a minimum of 100 generated examples per the spec's
+# testing strategy. The "ci" profile (selected via HYPOTHESIS_PROFILE=ci)
+# raises this further for thorough runs. Profiles are registered and loaded in
+# tests/conftest.py.

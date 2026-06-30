@@ -1,0 +1,10 @@
+# Care-Connect-EMR backend development & test dependencies
+-r requirements.txt
+
+# Test harness
+pytest==8.3.4
+pytest-asyncio==0.25.0
+hypothesis==6.123.2
+
+# Async HTTP client for endpoint tests
+httpx==0.28.1

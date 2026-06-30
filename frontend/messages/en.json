@@ -1,0 +1,118 @@
+{
+  "brand": {
+    "name": "Care-Connect",
+    "tagline": "Telemedicine & Electronic Medical Records"
+  },
+  "nav": {
+    "features": "Features",
+    "howItWorks": "How it works",
+    "login": "Log in",
+    "register": "Get started",
+    "dashboard": "Dashboard",
+    "logout": "Log out",
+    "notifications": "Notifications"
+  },
+  "common": {
+    "loading": "Loading…",
+    "retry": "Try again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "search": "Search",
+    "back": "Back",
+    "close": "Close",
+    "download": "Download",
+    "join": "Join video call",
+    "serviceUnavailable": "The service is temporarily unavailable. Please try again.",
+    "languageUnavailable": "The selected language is unavailable; showing English instead.",
+    "none": "Nothing to show yet."
+  },
+  "landing": {
+    "heroTitle": "Quality healthcare, wherever you are in Bangladesh",
+    "heroSubtitle": "Book verified doctors, consult by secure video, and receive digital prescriptions — all in one trusted platform.",
+    "ctaPrimary": "Book an appointment",
+    "ctaSecondary": "I'm a doctor",
+    "feature1Title": "Verified doctors",
+    "feature1Body": "Consult licensed practitioners across specialties, reviewed and approved by our team.",
+    "feature2Title": "Secure video consultations",
+    "feature2Body": "Private, peer-to-peer video visits from the comfort of your home.",
+    "feature3Title": "Encrypted medical records",
+    "feature3Body": "Your medical history and prescriptions are encrypted and available only to you and your doctor.",
+    "feature4Title": "Digital prescriptions",
+    "feature4Body": "Receive a professional PDF prescription by email after every consultation."
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Log in to your Care-Connect account",
+    "registerTitle": "Create your account",
+    "registerSubtitle": "Join Care-Connect in a minute",
+    "email": "Email address",
+    "password": "Password",
+    "fullName": "Full name",
+    "role": "I am a",
+    "rolePatient": "Patient",
+    "roleDoctor": "Doctor",
+    "loginButton": "Log in",
+    "registerButton": "Create account",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signUp": "Sign up",
+    "signIn": "Sign in",
+    "resetTitle": "Reset your password",
+    "resetSubtitle": "We'll email you a reset link",
+    "resetButton": "Send reset link",
+    "resetSent": "If that email is registered, a reset link is on its way.",
+    "doctorPendingNotice": "Your doctor account is awaiting admin approval. You'll be notified by email once approved."
+  },
+  "patient": {
+    "dashboardTitle": "Your health dashboard",
+    "upcoming": "Upcoming appointments",
+    "prescriptions": "Recent prescriptions",
+    "vitals": "Your vitals",
+    "findDoctor": "Find a doctor",
+    "book": "Book appointment",
+    "noUpcoming": "You have no upcoming appointments.",
+    "noPrescriptions": "No prescriptions yet."
+  },
+  "doctor": {
+    "dashboardTitle": "Doctor dashboard",
+    "today": "Today's appointments",
+    "pendingToday": "Pending today",
+    "schedule": "Manage availability",
+    "noToday": "No appointments scheduled for today."
+  },
+  "admin": {
+    "dashboardTitle": "Admin dashboard",
+    "totalPatients": "Total patients",
+    "activeDoctors": "Active doctors",
+    "appointmentsToday": "Appointments today",
+    "users": "Users",
+    "approvals": "Doctor approvals",
+    "approve": "Approve",
+    "reject": "Reject",
+    "deactivate": "Deactivate",
+    "noPending": "No pending approvals."
+  },
+  "appointment": {
+    "with": "with",
+    "status": "Status",
+    "cancel": "Cancel",
+    "reschedule": "Reschedule",
+    "fee": "Fee"
+  },
+  "fields": {
+    "specialty": "Specialty",
+    "qualifications": "Qualifications",
+    "fee": "Consultation fee",
+    "bloodPressure": "Blood pressure",
+    "heartRate": "Heart rate",
+    "temperature": "Temperature",
+    "weight": "Weight",
+    "diagnosis": "Diagnosis",
+    "medication": "Medication",
+    "dosage": "Dosage",
+    "frequency": "Frequency",
+    "duration": "Duration"
+  }
+}

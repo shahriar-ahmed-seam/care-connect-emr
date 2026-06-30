@@ -1,0 +1,84 @@
+# Render Blueprint for Care-Connect-EMR (backend API + worker + PostgreSQL).
+# The Next.js frontend deploys to Vercel (see frontend/vercel.json).
+#
+# All secrets are provided as environment variables — none are committed.
+# After first deploy, set the secret values marked `sync: false` in the Render
+# dashboard (or via `render env`).
+
+databases:
+  - name: care-connect-db
+    databaseName: careconnect
+    plan: free
+    postgresMajorVersion: "15"
+
+services:
+  # --- Backend API (FastAPI via Gunicorn/Uvicorn) ---------------------------
+  - type: web
+    name: care-connect-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    # Run migrations on each release, then serve.
+    preDeployCommand: "alembic upgrade head"
+    startCommand: "gunicorn app.main:app -k uvicorn.workers.UvicornWorker -b 0.0.0.0:$PORT --workers 2"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: care-connect-db
+          property: connectionString
+      - key: EMR_ENCRYPTION_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ALLOW_ORIGINS
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM_EMAIL
+        sync: false
+      - key: TURN_URL
+        sync: false
+      - key: TURN_USERNAME
+        sync: false
+      - key: TURN_CREDENTIAL
+        sync: false
+
+  # --- Background worker (reminders + email outbox) -------------------------
+  - type: worker
+    name: care-connect-worker
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python -m app.worker"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: care-connect-db
+          property: connectionString
+      - key: EMR_ENCRYPTION_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM_EMAIL
+        sync: false

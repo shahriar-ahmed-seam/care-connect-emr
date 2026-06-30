@@ -1,0 +1,31 @@
+# Care-Connect-EMR backend runtime dependencies
+# Python 3.12 target (see design.md). Pinned for reproducible Render builds.
+
+# Web framework / ASGI
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+gunicorn==23.0.0
+
+# Data validation / settings
+pydantic==2.10.4
+pydantic-settings==2.7.1
+
+# ORM / migrations (async)
+SQLAlchemy[asyncio]==2.0.36
+alembic==1.14.0
+asyncpg==0.30.0
+
+# Security: encryption, password hashing, JWT
+cryptography==44.0.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.2.1
+python-jose[cryptography]==3.3.0
+
+# Background jobs
+APScheduler==3.11.0
+
+# PDF generation (pure-Python; no native deps — portable across Windows/Linux)
+fpdf2==2.8.7
+
+# Async email
+aiosmtplib==3.0.2
