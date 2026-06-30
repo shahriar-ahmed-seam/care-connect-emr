@@ -55,22 +55,43 @@ privacy with field-level encryption and a HIPAA-style audit trail.
 
 ## Architecture
 
-```
-┌────────────────────────┐         HTTPS / WSS          ┌───────────────────────────┐
-│  Next.js frontend       │  ───────────────────────▶   │  FastAPI backend (Render)  │
-│  (Vercel)               │                              │   REST API + signaling     │
-│  • App Router, TS       │                              │   ├─ Auth / RBAC / Audit   │
-│  • Tailwind design sys  │   ◀── SDP/ICE signaling ──   │   ├─ Appointments          │
-│  • next-intl (en/bn)    │                              │   ├─ EMR (encrypted)       │
-└──────────┬─────────────┘                              │   ├─ Prescriptions → PDF   │
-           │  direct P2P media (WebRTC)                  │   └─ Notifications         │
-           ▼                                             │  Background worker         │
-      ┌──────────┐                                       │   reminders + email outbox │
-      │  Peer     │                                      └────────────┬──────────────┘
-      │  browser  │                                                   │
-      └──────────┘                                            ┌───────▼────────┐
-                                                              │  PostgreSQL 15  │
-                                                              └────────────────┘
+The frontend (Vercel) talks to the backend (Render) over HTTPS for the REST API
+and over WSS for WebRTC signaling. Crucially, the signaling channel exchanges
+only SDP/ICE messages — the audio/video **media stream flows directly between
+the two browsers** and never touches the server. A background worker handles
+appointment reminders and the prescription-email outbox.
+
+```mermaid
+flowchart LR
+    subgraph Patient["Patient browser"]
+        PUI["Next.js UI"]
+        PRTC["WebRTC"]
+    end
+
+    subgraph Doctor["Doctor browser"]
+        DUI["Next.js UI"]
+        DRTC["WebRTC"]
+    end
+
+    subgraph Backend["Backend · Render"]
+        API["FastAPI<br/>REST API + WS signaling"]
+        WORKER["Background worker<br/>reminders · email outbox"]
+    end
+
+    DB[("PostgreSQL 15<br/>AES-256 encrypted records")]
+    SMTP["Email provider (SMTP)"]
+    TURN["STUN / TURN"]
+
+    PUI -->|HTTPS REST| API
+    DUI -->|HTTPS REST| API
+    PRTC -->|WSS · SDP/ICE only| API
+    DRTC -->|WSS · SDP/ICE only| API
+    PRTC <==>|direct P2P audio/video| DRTC
+    PRTC -.NAT traversal.-> TURN
+    DRTC -.NAT traversal.-> TURN
+    API --> DB
+    WORKER --> DB
+    WORKER --> SMTP
 ```
 
 ### Tech stack
